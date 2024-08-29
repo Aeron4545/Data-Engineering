@@ -1,0 +1,5 @@
+SELECT TOP (1000) [Ware_house_ID]
+      ,[Location_type]
+      ,[product_wg_ton]
+      ,[flood_proof]
+  FROM [warehouseDB].[dbo].[Overview]

@@ -1,0 +1,42 @@
+Restaurant Data Analysis Using Mongo DB
+
+1)use restaurants
+
+use restaurants;
+
+--2)create collection
+
+db.createCollection("restaurant")
+db.restaurant.countDocuments()
+db.restaurant.find()
+
+--3) To show specific field/ schema of collection
+--To show restaurant_id,name,borough,zipcode which is in address and field "_id".
+db.restaurant.find({},{_id:0,restaurant_id:1,name:1,borough:1,"address.zipcode":1})
+
+db.restaurant.find({cuisine:"American "},{_id:0,restaurant_id:1,name:1,borough:1,"address.zipcode":1}) //adding an extra query just to know
+
+--4) Find the restaurants that achieved the score greater than 2
+
+db.restaurant.find({'grades.0.score':{$gt:2}}
+
+--5) unwind is used to deconstruct grades into individual documents
+
+db.restaurant.aggregate([{"$unwind":"$grades"},{"$group":{_id:"$_id",totalScore:{$sum:"$grades.score"}}}])
+
+--6) Show all records with the sum of score is greater than 90
+db.restaurant.aggregate([
+{$unwind:"$grades"},
+{"$group":
+		{_id:"$_id",
+		totalScore:{$sum:"$grades.score"},
+		name:{$first:"$name"},
+		cuisine:{$first:"$cuisine"},
+		address:{$first:"$address"}}},
+{$match:{totalScore:{$gt:90}}}])
+
+
+
+
+
+

@@ -1,0 +1,90 @@
+1.show databases;
+
+2.use sales;
+
+--to create a collection
+
+3.db.createCollection("products");
+
+4.show collections;
+
+--to insert a document
+
+5.db.products.insertOne({"product_ID":1,"product_name":"Laptop","Category":"electronics","price":57990});
+
+*Nosql can handle both structured as well as semi structured data 
+ rather than sql which works on structured data only
+
+
+--6) to insert multiple documents
+db.products.insertMany([{"product_ID":2,"product_name":"Smart Phone","Category":"Mobile & Accessories","price":57990},
+{"product_ID":3,"product_name":"Camera","Category":"Photography","price":40990}])
+
+--7) to find all documents
+db.products.find()
+
+
+--8) to find documents using filter
+
+db.products.find({"product_ID":1})
+
+
+--9)to find products with price greater than 50000
+
+db.products.find({"price":{$gt:50000}})
+
+--10)to show documents/record from products with price lesser than 50000
+
+db.products.find({"price":{$lt:50000}})
+
+--11)lesser than or equal to 50000
+
+db.products.find({"price":{$lte:50000}})
+
+--12) greater than or equal to 50000
+
+db.products.find({"price":{$lt:50000}})
+
+--13) To update a product
+--adding a new data to existing document
+
+db.products.updateOne({"product_ID":1},{$set:{"Discount":0.10}})
+
+--14) Updating multiple documents
+
+db.products.updateMany({"Category":"electronics"},{$set:{"Discount":0.15}})
+
+--15) Delete a document
+
+db.products.deleteOne({"product_ID":1})
+
+--16)Deleting mulitple documents
+
+db.products.deleteMany({"price":{$gte:60000}})
+
+--17)Deleting using multiple conditions
+
+db.products.deleteMany({"price":{$lte:30000}},{"category":"Fashion"})
+
+--18) To show number of documents in collection
+
+db.products.countDocuments()
+
+--19)To drop the collection using collection name
+
+db.products.drop()
+
+--20) To drop the database
+
+db.dropDatabase()
+
+--21)To get collection info
+
+db.getCollectionInfos()
+
+--22) To get collection names
+
+db.getCollectionNames()
+
+
+
